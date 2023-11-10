@@ -1,0 +1,14 @@
+{
+  "name": "just-a-kanban",
+  "version": "0.0.1",
+  "description": "Just a Kanban board",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "browser-sync start --server \"src\" --files \"src\""
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.29.3"
+  }
+}
