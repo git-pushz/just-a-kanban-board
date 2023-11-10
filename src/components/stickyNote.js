@@ -40,7 +40,7 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
 
   const stickyNoteBtnClose = document.createElement("button");
   stickyNoteBtnClose.classList.add(...["sticky-note-btn-close"]);
-  stickyNoteBtnClose.textContent = "Finish";
+  stickyNoteBtnClose.textContent = "Finish editing";
 
   const stickyNoteBody = document.createElement("button");
   stickyNoteBody.classList.add(...["sticky-note-body"]);
@@ -53,7 +53,9 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
 
   const stickyNoteBtnThrow = document.createElement("button");
   stickyNoteBtnThrow.classList.add(...["sticky-note-btn-throw"]);
-  stickyNoteBtnThrow.textContent = "X";
+  const iconBtnThrow = document.createElement("i");
+  iconBtnThrow.classList.add(...["fa-solid", "fa-circle-xmark"]);
+  stickyNoteBtnThrow.appendChild(iconBtnThrow);
 
   const stickyNote = document.createElement("div");
   stickyNote.classList.add(...["sticky-note"]);
@@ -64,9 +66,27 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
   if (zIndex === 0) {
     zIndex = generateZIndex();
   }
+  const colors = [
+    "--ctp-mocha-rosewater",
+    "--ctp-mocha-flamingo",
+    "--ctp-mocha-pink",
+    "--ctp-mocha-mauve",
+    "--ctp-mocha-red",
+    "--ctp-mocha-maroon",
+    "--ctp-mocha-peach",
+    "--ctp-mocha-yellow",
+    "--ctp-mocha-green",
+    "--ctp-mocha-teal",
+    "--ctp-mocha-sky",
+    "--ctp-mocha-sapphire",
+    "--ctp-mocha-blue",
+    "--ctp-mocha-lavender"
+  ];
+
   Object.assign(stickyNote.style, {
     zIndex: zIndex,
-    transform: `translate(${offsetX}px, ${offsetY}px)`
+    transform: `translate(${offsetX}px, ${offsetY}px)`,
+    background: `var(${colors[Math.floor(Math.random() * colors.length)]})`
   })
 
   parentBoard.appendChild(stickyNote);

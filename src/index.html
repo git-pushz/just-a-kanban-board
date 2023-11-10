@@ -5,8 +5,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <base href=".">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <script src="https://kit.fontawesome.com/787445dd57.js" crossorigin="anonymous"></script>
     <script src="app.js" type="module"></script>
   </head>
 
@@ -15,14 +19,25 @@
 
       <div class="navbar-left">
         <h1>Just a Kanban board</h1>
+        <h3>As the title says: just a kanban board, the true whiteboard experience.</h3>
       </div>
 
       <div class="navbar-right">
         <button class="navbar-btn-add-note" id="navbar-btn-add-note">
-          + Add a note
+          <i class="merged-icon">
+            <i class="fa-solid fa-note-sticky">
+              <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+            </i>
+          </i>
+          <span>Add a note</span>
         </button>
         <button class="navbar-btn-add" id="navbar-btn-add">
-          + Add a column
+          <i class="merged-icon">
+            <i class="fa-solid fa-file">
+              <i class="fa-solid fa-plus" style="color: #ffffff"></i>
+            </i>
+          </i>
+          <span>Add a column</span>
         </button>
       </div>
 

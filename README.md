@@ -19,3 +19,5 @@ npm run serve
 - [ ] implement infinite board
 - [X] implement cookies
 - [ ] implement session
+- [ ] style
+- [ ] add sub-column should add two columns

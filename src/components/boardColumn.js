@@ -26,7 +26,19 @@ export const addBoardColumn = (parentBoard, boardColumnId=0, title="", level=0) 
 
   const boardColumnBtnAddC = document.createElement("button");
   boardColumnBtnAddC.classList.add(...["board-column-btn-add-c"]);
-  boardColumnBtnAddC.textContent = "ADD COLUMN";
+  const iconBtnAddC = document.createElement("i");
+  const iCol = document.createElement("i");
+  const iPlus = document.createElement("i");
+  const iSpan = document.createElement("span");
+  iCol.classList.add(...["fa-solid", "fa-file"]);
+  iPlus.classList.add(...["fa-solid", "fa-plus"]);
+  iPlus.style.color = "#ffffff";
+  iconBtnAddC.classList.add(...["merged-icon"]);
+  iSpan.textContent = "Add a sub-column";
+  iCol.appendChild(iPlus);
+  iconBtnAddC.appendChild(iCol);
+  boardColumnBtnAddC.appendChild(iconBtnAddC);
+  boardColumnBtnAddC.appendChild(iSpan);
 
   const boardCBB = document.createElement("div");
   boardCBB.classList.add(...["board-c-b-b"]);
@@ -58,7 +70,9 @@ export const addBoardColumn = (parentBoard, boardColumnId=0, title="", level=0) 
 
   const boardColumnBtnThrow = document.createElement("button");
   boardColumnBtnThrow.classList.add(...["board-column-btn-throw"]);
-  boardColumnBtnThrow.textContent = "X";
+  const iconBtnThrow = document.createElement("i");
+  iconBtnThrow.classList.add(...["fa-solid", "fa-circle-xmark"]);
+  boardColumnBtnThrow.appendChild(iconBtnThrow);
 
   const boardColumn = document.createElement("board-column");
   boardColumn.classList.add(...["board-column"]);
