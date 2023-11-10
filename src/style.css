@@ -35,6 +35,8 @@ textarea {
   border: solid;
   flex-grow: 1;
   display: flex;
+  position: relative;
+  justify-content: center;
 }
 
 .board-column {
@@ -71,9 +73,6 @@ textarea {
 
 .board-c-b-b {
   display: flex;
-  position: relative;
-  height: 100%;
-  flex-direction: column;
 }
 
 .draggable-overlay {
