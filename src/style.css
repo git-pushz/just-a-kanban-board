@@ -5,6 +5,23 @@
   --primary-color: black, 
 }
 
+@media (min-width:320px)  { 
+  /* smartphones, iPhone, portrait 480x320 phones */ 
+  html {
+    font-size: 11px;
+  }
+}
+@media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
+@media (min-width:641px)  { /* portrait tablets, portrait iPad, landscape e-readers, landscape 800x480 or 854x480 phones */ }
+@media (min-width:961px)  { 
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width:1025px) { /* big landscape tablets, laptops, and desktops */ }
+@media (min-width:1281px) { /* hi-res laptops and desktops */ }
+
 * { padding: 0; margin: 0; }
 
 html, body {
@@ -18,6 +35,9 @@ html, body {
 
 body {
   margin: .5rem;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
 }
 
 body > * {
@@ -61,10 +81,18 @@ textarea:hover {
   background: transparent;
 }
 
+header {
+	background: var(--ctp-frappe-base);
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+  margin: -.5rem;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
-  margin-bottom: .5rem;
+  padding: 0.5rem;
 }
 
 .navbar-right {
@@ -74,24 +102,31 @@ textarea:hover {
 
 .board {
   flex-grow: 1;
+  flex-wrap: nowrap;
   display: flex;
   position: relative;
-  justify-content: center;
+  /* justify-content: center; */
   gap: .5rem;
+  touch-action: none;
+  /* This makes things *much* easier */
+  box-sizing: border-box;
+  top: 5.5rem;
 }
 
 .board-column {
   background: var(--ctp-frappe-crust);
   display: flex;
+  flex: 0 0 26rem;
   flex-direction: column;
-  flex-grow: 1;
+  /* flex-grow: 1; */
   position: relative;
   border-radius: .5rem;
   padding: .5rem;
 }
 
 .board-column-header {
-  align-text: center;
+  display: flex;
+  align-items: baseline;
 }
 
 .board-column-title {
@@ -103,6 +138,10 @@ textarea:hover {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+}
+
+.board-column-skeleton {
+  order: 1;
 }
 
 .board-c-b-h {
@@ -122,6 +161,8 @@ textarea:hover {
 
 .board-c-b-b .board-column {
   border-radius: 0;
+  flex-grow: 1; 
+  flex-shrink: 1; 
 }
 
 .draggable-overlay {
@@ -141,10 +182,9 @@ textarea:hover {
   top: 40%;
   align-self: center;
   z-index: 1;
-  width: 15rem;
-  height: 10rem;
-  min-height: 6.5em;
-  border-radius: 0.5em;
+  width: 12rem;
+  height: 8rem;
+  border-radius: 0.5rem;
   box-shadow: 1px 1px 1px #999;
   padding: 10px;
   line-height: 1.5;
@@ -205,6 +245,10 @@ textarea:hover {
   padding: .5rem;
 }
 
+.board-column-btn-add-c > span {
+  width: 5rem;
+}
+
 .merged-icon {
   position: relative;
   font-size: 1.5rem;
@@ -221,5 +265,24 @@ textarea:hover {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1rem;
+}
+
+#add-column-btn {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: -0.5rem;
+}
+
+#add-column-btn > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 2rem;
+}
+
+#add-column-btn > div > i{
+  font-size: 4rem;
 }
 

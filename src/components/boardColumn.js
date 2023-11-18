@@ -24,36 +24,15 @@ export const addBoardColumn = (parentBoard, boardColumnId=0, title="", level=0) 
   // boardColumnBtnAdd.classList.add(...["board-column-btn-add"]);
   // boardColumnBtnAdd.textContent = "ADD";
 
-  const boardColumnBtnAddC = document.createElement("button");
-  boardColumnBtnAddC.classList.add(...["board-column-btn-add-c"]);
-  const iconBtnAddC = document.createElement("i");
-  const iCol = document.createElement("i");
-  const iPlus = document.createElement("i");
-  const iSpan = document.createElement("span");
-  iCol.classList.add(...["fa-solid", "fa-file"]);
-  iPlus.classList.add(...["fa-solid", "fa-plus"]);
-  iPlus.style.color = "#ffffff";
-  iconBtnAddC.classList.add(...["merged-icon"]);
-  iSpan.textContent = "Add a sub-column";
-  iCol.appendChild(iPlus);
-  iconBtnAddC.appendChild(iCol);
-  boardColumnBtnAddC.appendChild(iconBtnAddC);
-  boardColumnBtnAddC.appendChild(iSpan);
-
   const boardCBB = document.createElement("div");
   boardCBB.classList.add(...["board-c-b-b"]);
 
-  const boardCBH = document.createElement("div");
-  boardCBH.classList.add(...["board-c-b-h"]);
+  // const boardCBH = document.createElement("div");
+  // boardCBH.classList.add(...["board-c-b-h"]);
   
-  if (level == 0) {
-    // boardCBB.appendChild(boardColumnBtnAdd);
-    boardCBH.appendChild(boardColumnBtnAddC);
-  }
-
   const boardColumnBody = document.createElement("div");
   boardColumnBody.classList.add(...["board-column-body"]);
-  boardColumnBody.appendChild(boardCBH);
+  // boardColumnBody.appendChild(boardCBH);
   boardColumnBody.appendChild(boardCBB);
 
   const boardColumnTitle = document.createElement("textarea");
@@ -64,9 +43,23 @@ export const addBoardColumn = (parentBoard, boardColumnId=0, title="", level=0) 
     boardColumnTitle.textContent = title;
   }
 
+  const boardColumnBtnAddC = document.createElement("button");
+  boardColumnBtnAddC.classList.add(...["board-column-btn-add-c"]);
+  const iPlus = document.createElement("i");
+  iPlus.classList.add(...["fa-solid", "fa-table-columns"]);
+  const iSpan = document.createElement("span");
+  iSpan.textContent = "split column";
+  boardColumnBtnAddC.appendChild(iPlus);
+  boardColumnBtnAddC.appendChild(iSpan);
+
   const boardColumnHeader = document.createElement("board-column-header");
   boardColumnHeader.classList.add(...["board-column-header"]);
   boardColumnHeader.appendChild(boardColumnTitle);
+  if (level == 0) {
+    // boardCBB.appendChild(boardColumnBtnAdd);
+    boardColumnHeader.appendChild(boardColumnBtnAddC);
+  }
+
 
   const boardColumnBtnThrow = document.createElement("button");
   boardColumnBtnThrow.classList.add(...["board-column-btn-throw"]);
@@ -103,6 +96,9 @@ export const addBoardColumn = (parentBoard, boardColumnId=0, title="", level=0) 
   //   addStickyNote(document.getElementById("board"));
   // });
   boardColumnBtnAddC.addEventListener("click", () => {
+    if (Object.keys(boardColumns[boardColumnId].children).length == 0) {
+      addBoardColumn(boardCBB, generateBoardId(),"" , level=1);
+    }
     addBoardColumn(boardCBB, generateBoardId(),"" , level=1);
   });
 

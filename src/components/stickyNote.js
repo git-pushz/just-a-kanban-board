@@ -27,14 +27,14 @@ export const generateZIndex = () => {
   return zIndexCounter;
 }
 
-export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zIndex=0, text="") => {
+export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zIndex=0, width=0, height=0, text="") => {
   if (noteId === 0) {
     noteId = generateNoteId();
   }
 
   const stickyNoteText = document.createElement("textarea");
   stickyNoteText.setAttribute("name", "note content");
-  stickyNoteText.setAttribute("placeholder", "Write note...");
+  stickyNoteText.setAttribute("placeholder", "Write the note...\nThen press 'Finish editing'");
   stickyNoteText.classList.add(...["sticky-note-text"]);
   stickyNoteText.textContent = text;
 
@@ -89,6 +89,13 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
     background: `var(${colors[Math.floor(Math.random() * colors.length)]})`
   })
 
+  if (width !== 0 && height !== 0) {
+    Object.assign(stickyNote.style, {
+      width: width,
+      height: height
+    })
+  }
+
   parentBoard.appendChild(stickyNote);
 
   stickyNoteBtnThrow.addEventListener("click", () => {
@@ -122,8 +129,8 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
     dataset: {
       offsetX: offsetX,
       offsetY: offsetY,
-      width: 0,
-      height: 0,
+      width: width,
+      height: height,
       zIndex: zIndex
     }
   }

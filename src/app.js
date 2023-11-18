@@ -8,12 +8,15 @@ import "./components/interactivity.js"
 const initialized = localStorage.getItem("initialized") ? true : false;
 
 window.addEventListener('load', async function () {
+  // Disable both horizontal and vertical scrolling on mobile
+  document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
+
   if (!initialized) {
     localStorage.setItem("initialized", "true");
   }
   const board = document.getElementById("board");
   document
-    .getElementById("navbar-btn-add")
+    .getElementById("add-column-btn")
     ?.addEventListener("click", () => {
       addBoardColumn(board, 0, "", 0);
     });
@@ -40,6 +43,6 @@ window.addEventListener('load', async function () {
 
   for (const [key, value] of Object.entries(notes)) {
     console.log({value});
-    addStickyNote(board, key, value.dataset.offsetX, value.dataset.offsetY, value.dataset.zIndex, value.text);
+    addStickyNote(board, key, value.dataset.offsetX, value.dataset.offsetY, value.dataset.zIndex, value.dataset.width, value.dataset.height, value.text);
   }
 })
