@@ -83,9 +83,12 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
     "--ctp-mocha-lavender"
   ];
 
+  const boardOffsetX = parseFloat(parentBoard.getAttribute('data-x')) || 0;
+  const boardOffsetY = parseFloat(parentBoard.getAttribute('data-y')) || 0;
+
   Object.assign(stickyNote.style, {
     zIndex: zIndex,
-    transform: `translate(${offsetX}px, ${offsetY}px)`,
+    transform: `translate(${offsetX - boardOffsetX}px, ${offsetY - boardOffsetY}px)`,
     background: `var(${colors[Math.floor(Math.random() * colors.length)]})`
   })
 
@@ -97,6 +100,7 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
   }
 
   parentBoard.appendChild(stickyNote);
+  stickyNoteText.focus();
 
   stickyNoteBtnThrow.addEventListener("click", () => {
     stickyNote.remove();
@@ -115,7 +119,6 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
   }
 
   const updateText = debounce((newText) => {
-    console.log(newText);
     notes[noteId].text = newText;
     localStorage.setItem("notes", JSON.stringify(notes));
   });
@@ -125,10 +128,9 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
 
   notes[noteId] = {
     text: text,
-    // boardId: parentBoard.id,
     dataset: {
-      offsetX: offsetX,
-      offsetY: offsetY,
+      offsetX: offsetX - boardOffsetX,
+      offsetY: offsetY - boardOffsetY,
       width: width,
       height: height,
       zIndex: zIndex

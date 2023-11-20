@@ -45,4 +45,21 @@ window.addEventListener('load', async function () {
     console.log({value});
     addStickyNote(board, key, value.dataset.offsetX, value.dataset.offsetY, value.dataset.zIndex, value.dataset.width, value.dataset.height, value.text);
   }
+
+  document.body.addEventListener("wheel", (event) => {
+    const target = document.getElementById('board');
+    const deltaFactor = 0.1
+    const scaleDelta = event.deltaY > 0 ? -deltaFactor : deltaFactor;
+
+    const x = (parseFloat(target.getAttribute('data-x')) || 0);
+    const y = (parseFloat(target.getAttribute('data-y')) || 0);
+    const scaleFactor = (parseFloat(target.getAttribute('scale-factor')) || 1) + scaleDelta;
+    if (scaleFactor < 0.5 || scaleFactor > 2.5) return;
+
+    Object.assign(target.style, {
+      transform: `translate(${x}px, ${y}px) scale(${scaleFactor})`
+    });
+
+    target.setAttribute('scale-factor', scaleFactor);
+  });
 })

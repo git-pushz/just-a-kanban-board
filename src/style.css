@@ -33,11 +33,16 @@ html, body {
   flex-direction: column;
 }
 
+h2 {
+  font-size: 1rem;
+}
+
 body {
   margin: .5rem;
   width: 100%;
   overflow: hidden;
   position: fixed;
+  cursor: grab;
 }
 
 body > * {
@@ -52,6 +57,7 @@ button, textarea {
   border: none;
   outline: none;
   border-radius: 0.5rem;
+  padding: .2rem;
 }
 
 button {
@@ -166,7 +172,6 @@ header {
 }
 
 .draggable-overlay {
-  cursor: pointer !important;
   position: absolute;
   background-color: transparent;
   top: 0;
@@ -203,7 +208,6 @@ header {
 .sticky-note-body {
   position: relative;
   background-color: transparent;
-  cursor: pointer;
 
   width: 100%;
   max-width: 100%;

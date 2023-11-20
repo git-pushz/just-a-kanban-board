@@ -2,49 +2,35 @@
 
 import { generateZIndex, notes } from "./stickyNote.js";
 
-interact('#board')
+interact('body')
   .draggable({
     inertia: false,
     autoScroll: false,
     listeners: {
       move: function(event) {
-        const target = event.target;
+        const target = document.getElementById("board");
 
-        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx
-        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy
+        const x = (parseFloat(target.getAttribute('data-x')) || 0) + event.dx;
+        const y = (parseFloat(target.getAttribute('data-y')) || 0) + event.dy;
+        const scaleFactor = parseFloat(target.getAttribute('scale-factor')) || 1;
 
+        event.target.style.cursor = "grabbing";
         Object.assign(target.style, {
-          transform: `translate(${x}px, ${y}px)`,
+          transform: `translate(${x}px, ${y}px) scale(${scaleFactor})`,
         });
 
         target.setAttribute('data-x', x)
         target.setAttribute('data-y', y)
       },
+      end: function(event) {
+        const target = event.target;
+        Object.assign(target.style, {
+          cursor: `grab`
+        });
+      }
     }
   })
-  // .resizable({
-  //   edges: { left: true, right: true, bottom: true, top: true },
-
-  //   listeners: {
-  //     move (event) {
-  //       const target = event.target;
-  //       let x = (parseFloat(target.getAttribute('data-x')) || 0);
-  //       let y = (parseFloat(target.getAttribute('data-y')) || 0);
-
-  //       x += event.deltaRect.left;
-  //       y += event.deltaRect.top;
-
-  //       Object.assign(target.style, {
-  //         width: `${event.rect.width}px`,
-  //         height: `${event.rect.height}px`,
-  //         transform: `translate(${x}px, ${y}px)`
-  //       });
-
-  //       target.setAttribute('data-x', x);
-  //       target.setAttribute('data-y', y);
-  //     }
-  //   },
-  // })
+  .styleCursor(false)
 
 interact('.sticky-note .draggable-overlay')
   .draggable({
