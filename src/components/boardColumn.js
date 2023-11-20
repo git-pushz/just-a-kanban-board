@@ -52,6 +52,7 @@ export const addBoardColumn = (parentBoard, boardColumnId=0, title="", level=0) 
   }
 
   const boardColumnBtnThrow = document.createElement("button");
+  boardColumnBtnThrow.ariaLabel = "Delete column";
   boardColumnBtnThrow.classList.add(...["board-column-btn-throw"]);
   const iconBtnThrow = document.createElement("i");
   iconBtnThrow.classList.add(...["fa-solid", "fa-circle-xmark"]);

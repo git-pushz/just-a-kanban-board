@@ -52,6 +52,7 @@ export const addStickyNote = (parentBoard, noteId=0, offsetX=0, offsetY=0, zInde
   draggableOverlay.setAttribute("note-id", noteId);
 
   const stickyNoteBtnThrow = document.createElement("button");
+  stickyNoteBtnThrow.ariaLabel = "Close note";
   stickyNoteBtnThrow.classList.add(...["sticky-note-btn-throw"]);
   const iconBtnThrow = document.createElement("i");
   iconBtnThrow.classList.add(...["fa-solid", "fa-circle-xmark"]);

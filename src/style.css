@@ -1,5 +1,5 @@
 @import url('https://unpkg.com/@catppuccin/palette/css/catppuccin.css');
-@font-face { font-family: ArialRounded; src: url('./assets/fonts/unicode.arialr.ttf'); }
+@font-face { font-family: ArialRounded; font-display: swap; src: url('./assets/fonts/unicode.arialr.ttf'); }
 
 :root {
   --primary-color: black, 
@@ -8,7 +8,7 @@
 @media (min-width:320px)  { 
   /* smartphones, iPhone, portrait 480x320 phones */ 
   html {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 @media (min-width:481px)  { /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */ }
@@ -228,6 +228,7 @@ header {
   left: 100%;
   transform: translate(-100%, 0);
   background-color: transparent;
+  font-size: 1rem;
 }
 
 .board-column-btn-add {
