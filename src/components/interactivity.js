@@ -48,8 +48,10 @@ interact('.sticky-note .draggable-overlay')
         const noteId = target.getAttribute("note-id");
         const stickyNote = document.getElementById(`note-${noteId}`);
 
-        const x = notes[noteId].dataset.offsetX + event.dx;
-        const y = notes[noteId].dataset.offsetY + event.dy;
+        const boardScaleFactor = (parseFloat(document.getElementById('board').getAttribute('scale-factor')) || 1);
+
+        const x = notes[noteId].dataset.offsetX + event.dx / boardScaleFactor;
+        const y = notes[noteId].dataset.offsetY + event.dy / boardScaleFactor;
 
         Object.assign(stickyNote.style, {
           transform: `translate(${x}px, ${y}px)`,
@@ -112,3 +114,61 @@ interact('.sticky-note .draggable-overlay')
     event.preventDefault()
   });
 
+
+export function initResizableListeners() {
+  function getDistance(touch1, touch2) {
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function translateAndScale(target, scaleDelta){
+    const x = (parseFloat(target.getAttribute('data-x')) || 0);
+    const y = (parseFloat(target.getAttribute('data-y')) || 0);
+    const scaleFactor = (parseFloat(target.getAttribute('scale-factor')) || 1) + scaleDelta;
+    if (scaleFactor < 0.5 || scaleFactor > 2.5) return;
+
+    Object.assign(target.style, {
+      transform: `translate(${x}px, ${y}px) scale(${scaleFactor})`
+    });
+
+    target.setAttribute('scale-factor', scaleFactor);
+  }
+
+  let isDragging = false;
+  let startDistance;
+
+  document.body.addEventListener("wheel", (event) => {
+    const target = document.getElementById('board');
+    const deltaFactor = 0.1;
+    const scaleDelta = event.deltaY > 0 ? -deltaFactor : deltaFactor;
+    translateAndScale(target, scaleDelta)
+  });
+
+  document.body.addEventListener("touchstart", (event) => {
+    if (event.touches.length === 2) {
+      isDragging = true;
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
+      startDistance = getDistance(touch1, touch2);
+    }
+  });
+
+  document.body.addEventListener("touchmove", (event) => {
+    event.preventDefault();
+    const target = document.getElementById('board');
+    const deltaFactor = 0.05;
+    if (isDragging && event.touches.length === 2) {
+      const touch1 = event.touches[0];
+      const touch2 = event.touches[1];
+      const currentDistance = getDistance(touch1, touch2);
+      const scaleDelta = currentDistance - startDistance > 0 ? deltaFactor : -deltaFactor;
+
+      translateAndScale(target, scaleDelta);
+    }
+  });
+
+  document.body.addEventListener("touchend", () => {
+    isDragging = false;
+  });
+}

@@ -2,15 +2,13 @@
 
 import { boardColumns, addBoardColumn } from "./components/boardColumn.js";
 import { notes, addStickyNote } from "./components/stickyNote.js";
-import "./components/interactivity.js"
+import "./components/interactivity.js";
+import { initResizableListeners } from "./components/interactivity.js";
 
 
 const initialized = localStorage.getItem("initialized") ? true : false;
 
 window.addEventListener('load', async function () {
-  // Disable both horizontal and vertical scrolling on mobile
-  document.body.addEventListener('touchmove', function(e){ e.preventDefault(); });
-
   if (!initialized) {
     localStorage.setItem("initialized", "true");
   }
@@ -46,20 +44,5 @@ window.addEventListener('load', async function () {
     addStickyNote(board, key, value.dataset.offsetX, value.dataset.offsetY, value.dataset.zIndex, value.dataset.width, value.dataset.height, value.text);
   }
 
-  document.body.addEventListener("wheel", (event) => {
-    const target = document.getElementById('board');
-    const deltaFactor = 0.1
-    const scaleDelta = event.deltaY > 0 ? -deltaFactor : deltaFactor;
-
-    const x = (parseFloat(target.getAttribute('data-x')) || 0);
-    const y = (parseFloat(target.getAttribute('data-y')) || 0);
-    const scaleFactor = (parseFloat(target.getAttribute('scale-factor')) || 1) + scaleDelta;
-    if (scaleFactor < 0.5 || scaleFactor > 2.5) return;
-
-    Object.assign(target.style, {
-      transform: `translate(${x}px, ${y}px) scale(${scaleFactor})`
-    });
-
-    target.setAttribute('scale-factor', scaleFactor);
-  });
+  initResizableListeners();
 })
